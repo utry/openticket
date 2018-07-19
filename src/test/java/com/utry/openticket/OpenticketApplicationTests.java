@@ -1,4 +1,4 @@
-package utry.openticket;
+package com.utry.openticket;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

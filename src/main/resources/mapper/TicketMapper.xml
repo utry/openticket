@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.utry.openticket.dao.ITicketDao">
+    <insert id="insertTest">
+        insert into ot_ticket(create_time,user_id,status,title,description)
+        values (sysdate(),1,1,"test","这是用于接通mybatis")
+    </insert>
+</mapper>
