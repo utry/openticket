@@ -36,4 +36,30 @@ public class TicketService {
 
     };
 
+    /**
+     *
+     * 功能描述 : 保存新工单
+     *
+     * @param : TicketDTO 工单对象
+     * @return :
+     * @auther : LVDING
+     * @date : 2018-07-26
+     */
+    public void saveTicket(TicketDTO ticketDTO){
+        ticketDao.saveTicket(ticketDTO);
+    }
+
+    /**
+     *
+     * 功能描述 : 删除工单
+     *
+     * @param : int id
+     * @return :
+     * @auther : LVDING
+     * @date : 2018-07-26
+     */
+    public void deleteTicket(int id){
+        ticketDao.deleteTicket(id);
+    }
+
 }

@@ -41,7 +41,7 @@ function changeTicketType(obj){
                                 "<td>"+data[i].id+"</td>"+
                                 "<td>"+data[i].createUser+"</td>"+
                                 "<td>"+data[i].createTime+"</td>"+
-                                "<td><a class=\'edit\' href=\'javascript:;\'>编辑</a> <a class=\'delete\' href=\'javascript:;\'>删除</a></td></tr>";
+                                "<td><a class=\'edit\' href=\'javascript:;\'>编辑</a> <a class=\'delete\' href=\'javascript:;\' onclick=\'deleteTicket(this)\'>删除</a></td></tr>";
                         tbody.append(tr);
                     }
                 },
@@ -65,4 +65,24 @@ function clearTable(){
 function clearColumn(){
     $("#sample_editable_1 thead tr").find("th").eq(3).nextAll().remove();
     $("#sample_editable_1 thead tr").append("<th>操作</th>");
+}
+
+//删除工单
+function deleteTicket(obj){
+    var tr = $(obj).parents("tr");
+    var id = $(obj).parents("tr").find("td").eq(1).text();
+   $.ajax({
+       type:"post",
+       url:"/openticket/deleteTicket",
+       //contentType: "application/json",
+       //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       data:{ id:id },
+       success:function(data){
+           alert("删除成功！");
+           tr.remove();
+       },
+       error:function(data){
+           alert("删除失败！");
+       }
+   });
 }

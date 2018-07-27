@@ -41,13 +41,7 @@ function submitOrder(){
     var required = $("[name=optionsRadios]:checked").val();
     var ticketType = $("[name=ticketType]").val();
     var selectValues = $("[name=textareaValue]").val();
-
     var selectValueList = trimSpace($("[name=textareaValue]").val().split("\n"));
-    // var list = new Array();
-    // for(var i=0;i<array.length;i++) {
-    //     list.push(array[i]);
-    // }
-
 
     if("" != name){
         if($("#optionsRadios4").is(":checked")){
@@ -68,7 +62,6 @@ function submitOrder(){
                }
            }
         }
-        alert("可以提交");
         $.ajax({
             type:"post",
             url:"/openticket/saveField",
@@ -84,7 +77,7 @@ function submitOrder(){
             }),
             success:function(data){
                 alert("添加成功！");
-                window.location.href="/openticket/test2";
+                window.location.href="/openticket/index";
             },
             error:function(data){
                 alert("添加失败！");

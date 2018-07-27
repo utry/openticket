@@ -3,10 +3,23 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.utry.openticket.dao.ITicketDAO">
+
     <select id="getTicketList" resultType="com.utry.openticket.dto.TicketDTO" parameterType="java.lang.String">
         select t.id,t.create_time as createTime,u.name as createUser,tt.name as ticketType from ot_ticket t,ot_user u,ot_ticket_type tt
         where ticket_type_id = (select id from ot_ticket_type where name = '${value}')
         and t.create_user_id = u.id
         and t.ticket_type_id = tt.id
     </select>
+
+    <insert id="saveTicket" parameterType="com.utry.openticket.dto.TicketDTO">
+        insert into ot_ticket(create_time,create_user_id,ticket_type_id)
+        values(SYSDATE(),
+          (select id from ot_user where name='${createUser}'),
+          (select id from ot_ticket_type where name='${ticketType}')
+        )
+    </insert>
+
+    <delete id="deleteTicket" parameterType="java.lang.Integer">
+        delete from ot_ticket where id=${value}
+    </delete>
 </mapper>

@@ -27,4 +27,25 @@ public interface ITicketDAO {
      */
     List<TicketDTO> getTicketList(String ticketType);
 
+    /**
+     *
+     * 功能描述 : 保存新工单
+     *
+     * @param : TicketDTO 工单对象
+     * @return : int 影响行数
+     * @auther : LVDING
+     * @date : 2018-07-26
+     */
+    int saveTicket(TicketDTO ticketDTO);
+
+    /**
+     *
+     * 功能描述 : 删除工单
+     *
+     * @param : int id
+     * @return : int 影响行数
+     * @auther : LVDING
+     * @date : 2018-07-26
+     */
+    int deleteTicket(int id);
 }

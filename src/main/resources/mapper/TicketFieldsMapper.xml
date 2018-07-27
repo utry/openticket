@@ -8,7 +8,7 @@
         where ticket_type_id = (select id from ot_ticket_type where name='${value}')
     </select>
 
-    <insert id="saveTicketFields" parameterType="com.utry.openticket.dto.TicketFieldDTO"
+    <insert id="saveTicketField" parameterType="com.utry.openticket.dto.TicketFieldDTO"
             useGeneratedKeys="true" keyProperty="ticketFieldDTO.id" >
         insert into ot_ticket_field(ticket_type_id,name,required,default_value,select_id)
         values(
