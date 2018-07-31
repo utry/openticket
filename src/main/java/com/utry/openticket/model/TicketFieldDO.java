@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class TicketFieldDO implements Serializable {
 
     private Integer id;
+    private String fieldName;
     private String name;
     private Integer required;
     private String defaultValue;
@@ -23,6 +24,14 @@ public class TicketFieldDO implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
     public String getName() {

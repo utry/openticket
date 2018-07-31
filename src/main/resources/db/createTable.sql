@@ -37,7 +37,8 @@ create table ot_user
 create table ot_ticket_field
 (
    id                   int not null comment '对象编号' AUTO_INCREMENT,
-   ticket_type_id		int not null comment '工单类型编号',
+   ticket_type_id		    int not null comment '工单类型编号',
+   field_name           varchar (255) not null unique comment '对象字段名', 
    name                 varchar(255) not null unique comment '对象名称',
    required             tinyint not null comment '是否必填' default '0', /* 默认为否 */
    default_value        varchar(255) comment '默认值',

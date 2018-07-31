@@ -4,15 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.utry.openticket.dao.ITicketFieldDAO">
     <select id="getColumn" parameterType="java.lang.String" resultType="com.utry.openticket.model.TicketFieldDO">
-        select name from ot_ticket_field
+        select field_name as fieldName,name from ot_ticket_field
         where ticket_type_id = (select id from ot_ticket_type where name='${value}')
     </select>
 
     <insert id="saveTicketField" parameterType="com.utry.openticket.dto.TicketFieldDTO"
             useGeneratedKeys="true" keyProperty="ticketFieldDTO.id" >
-        insert into ot_ticket_field(ticket_type_id,name,required,default_value,select_id)
+        insert into ot_ticket_field(ticket_type_id,field_name,name,required,default_value,select_id)
         values(
             (select id from ot_ticket_type where name=#{ticketType}),
+            #{fieldName},
             #{name},
             #{required},
             #{defaultValue},
