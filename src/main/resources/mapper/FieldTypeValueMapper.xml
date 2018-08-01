@@ -5,7 +5,7 @@
 <mapper namespace="com.utry.openticket.dao.IFieldTypeValueDAO">
 
     <insert id="saveFieldTypeValue" parameterType="java.util.List">
-        insert into ot_field_type_value(fields_id,value)
+        insert into ot_field_type_value(field_id,value)
         values
             <foreach collection="list" item="fieldTypeValue" separator=",">
                 (
@@ -15,5 +15,10 @@
             </foreach>
     </insert>
 
+    <select id="getFieldTypeValue" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select value
+        from ot_field_type_value
+        where field_id = #{value}
+    </select>
 </mapper>   
  

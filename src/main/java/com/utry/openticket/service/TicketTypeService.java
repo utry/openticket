@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class TicketTypeService {
     @Autowired
-    private ITicketTypeDAO ticketTypeDao;
+    private ITicketTypeDAO ticketTypeDAO;
 
     /**
      *
@@ -29,7 +29,8 @@ public class TicketTypeService {
      * @date : 2018-07-26
      */
     public List<TicketTypeDO> getTicketTypeList(){
-        List<TicketTypeDO> list = ticketTypeDao.getTicketTypeList();
+        List<TicketTypeDO> list = ticketTypeDAO.getTicketTypeList();
+
         return list;
     }
 

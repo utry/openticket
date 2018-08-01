@@ -19,7 +19,7 @@ import java.util.List;
 public class FieldTypeService {
 
     @Autowired
-    private IFieldTypeDAO fieldTypeDao;
+    private IFieldTypeDAO fieldTypeDAO;
 
     /**
      *
@@ -31,7 +31,7 @@ public class FieldTypeService {
      * @date : 2018-07-26
      */
     public List<FieldTypeDO> getFieldTypeList(){
-        List<FieldTypeDO> list = fieldTypeDao.getFieldTypeList();
+        List<FieldTypeDO> list = fieldTypeDAO.getFieldTypeList();
         return list;
     }
 

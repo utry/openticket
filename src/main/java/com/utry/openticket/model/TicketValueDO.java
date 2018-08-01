@@ -1,18 +1,16 @@
 package com.utry.openticket.model;
 
 /**
- * @Description : 非文本框自定义列的选择值表
  * @author : LVDING
  * @version : 1.0
- * @date : 2018/07/26
+ * @Description : 自定义值表
+ * @date : 2018-07-31
  */
-
-import java.io.Serializable;
-
-public class FieldTypeValueDO implements Serializable {
+public class TicketValueDO {
 
     private Integer id;
     private Integer fieldId;
+    private Integer ticketId;
     private String value;
 
     public Integer getId() {
@@ -31,6 +29,14 @@ public class FieldTypeValueDO implements Serializable {
         this.fieldId = fieldId;
     }
 
+    public Integer getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(Integer ticketId) {
+        this.ticketId = ticketId;
+    }
+
     public String getValue() {
         return value;
     }
@@ -41,9 +47,10 @@ public class FieldTypeValueDO implements Serializable {
 
     @Override
     public String toString() {
-        return "FieldTypeValueDO{" +
+        return "TicketValueDO{" +
                 "id=" + id +
                 ", fieldId=" + fieldId +
+                ", ticketId=" + ticketId +
                 ", value='" + value + '\'' +
                 '}';
     }

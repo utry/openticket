@@ -3,9 +3,11 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.utry.openticket.dao.ITicketFieldDAO">
-    <select id="getColumn" parameterType="java.lang.String" resultType="com.utry.openticket.model.TicketFieldDO">
-        select field_name as fieldName,name from ot_ticket_field
-        where ticket_type_id = (select id from ot_ticket_type where name='${value}')
+    <select id="getColumn" parameterType="java.lang.String" resultType="com.utry.openticket.dto.TicketFieldDTO">
+        select otf.id,otf.field_name as fieldName,otf.name,otf.required,otf.default_value as defaultValue,oft.name as selectType
+        from ot_ticket_field otf,ot_field_type oft
+        where ticket_type_id = (select id from ot_ticket_type where name='${value}') and
+        otf.select_id = oft.id
     </select>
 
     <insert id="saveTicketField" parameterType="com.utry.openticket.dto.TicketFieldDTO"
@@ -23,5 +25,22 @@
             SELECT LAST_INSERT_ID() as id
         </selectKey>
     </insert>
+
+    <select id="getUpdateColumn" resultType="com.utry.openticket.dto.TicketFieldDTO">
+        select result.id,ott.name as ticketType,result.field_name as fieldName,result.name,result.required,
+            result.default_value as defaultValue,oft.name as selectType,result.value
+        from (select otf.id,otf.ticket_type_id,otf.field_name,otf.name,otf.required,otf.default_value,
+            otf.select_id,otv.value,otv.ticket_id
+            from ot_ticket_field otf
+            left join ot_ticket_value otv
+            on otv.field_id = otf.id
+            where otf.ticket_type_id=(select id from ot_ticket_type where name='${ticketType}') ) result,
+            ot_ticket_type ott,
+            ot_field_type oft
+        where result.ticket_id=#{ticketId}
+            and result.ticket_type_id = ott.id
+            and result.select_id = oft.id
+    </select>
+
 </mapper>   
  

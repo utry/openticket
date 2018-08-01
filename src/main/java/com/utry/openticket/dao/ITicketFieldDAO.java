@@ -10,6 +10,7 @@ package com.utry.openticket.dao;
 import com.utry.openticket.model.TicketFieldDO;
 import com.utry.openticket.dto.TicketFieldDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface ITicketFieldDAO {
      * @auther : LVDING
      * @date : 2018-07-26
      */
-    List<TicketFieldDO> getColumn(String ticketType);
+    List<TicketFieldDTO> getColumn(String ticketType);
 
     /**
      *
@@ -38,4 +39,14 @@ public interface ITicketFieldDAO {
      */
     int saveTicketField(TicketFieldDTO ticketFieldsDTO);
 
+    /**
+     *
+     * 功能描述 : 根据工单类型,工单编号获得自定义列及数据
+     *
+     * @param : String ticketType 工单类型，int ticketId 工单编号
+     * @return : List<TicketFieldDO> 自定义列
+     * @auther : LVDING
+     * @date : 2018-07-26
+     */
+    List<TicketFieldDTO> getUpdateColumn(@Param("ticketId")int ticketId, @Param("ticketType")String ticketType);
 }

@@ -35,7 +35,8 @@ function showTextarea(obj){
 
 //进行校验并提交表单
 function submitOrder(){
-    var name = $("[name=fieldName]").val();
+    var name = $("[name=name]").val();
+    var fieldName = $("[name=fieldName]").val();
     var selectType = $("#typeSelect").val();
     var defaultValue = $("[name=defaultValue]").val();
     var required = $("[name=optionsRadios]:checked").val();
@@ -43,7 +44,7 @@ function submitOrder(){
     var selectValues = $("[name=textareaValue]").val();
     var selectValueList = trimSpace($("[name=textareaValue]").val().split("\n"));
 
-    if("" != name){
+    if("" != name && "" !=fieldName){
         if($("#optionsRadios4").is(":checked")){
             if("" == defaultValue){
                 alert("请输入默认值");
@@ -69,6 +70,7 @@ function submitOrder(){
             //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             data:JSON.stringify({
                 name:name,
+                fieldName:fieldName,
                 selectType:selectType,
                 defaultValue:defaultValue,
                 required:required,
@@ -84,7 +86,7 @@ function submitOrder(){
             }
         })
     }else{
-        alert("请输入需要添加列的名称");
+        alert("请输入需要添加列的名称或字段名");
     }
 }
 

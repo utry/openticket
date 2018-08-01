@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class TicketFieldDO implements Serializable {
 
     private Integer id;
+    private Integer ticketTypeId;
     private String fieldName;
     private String name;
     private Integer required;
@@ -24,6 +25,14 @@ public class TicketFieldDO implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTicketTypeId() {
+        return ticketTypeId;
+    }
+
+    public void setTicketTypeId(Integer ticketTypeId) {
+        this.ticketTypeId = ticketTypeId;
     }
 
     public String getFieldName() {
@@ -64,5 +73,18 @@ public class TicketFieldDO implements Serializable {
 
     public void setSelectId(Integer selectId) {
         this.selectId = selectId;
+    }
+
+    @Override
+    public String toString() {
+        return "TicketFieldDO{" +
+                "id=" + id +
+                ", ticketTypeId=" + ticketTypeId +
+                ", fieldName='" + fieldName + '\'' +
+                ", name='" + name + '\'' +
+                ", required=" + required +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", selectId=" + selectId +
+                '}';
     }
 }

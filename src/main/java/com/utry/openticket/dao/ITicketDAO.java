@@ -32,7 +32,7 @@ public interface ITicketDAO {
      * 功能描述 : 保存新工单
      *
      * @param : TicketDTO 工单对象
-     * @return : int 影响行数
+     * @return : int 添加后自增的id
      * @auther : LVDING
      * @date : 2018-07-26
      */
@@ -48,4 +48,16 @@ public interface ITicketDAO {
      * @date : 2018-07-26
      */
     int deleteTicket(int id);
+
+
+    /**
+     *
+     * 功能描述 : 通过工单类型获得工单编号
+     *
+     * @param : String ticketType 工单类型
+     * @return : List<Integer>工单编号List
+     * @auther : LVDING
+     * @date : 2018-08-01
+     */
+    List<Integer> getTicketIdByTicketType(String ticketType);
 }

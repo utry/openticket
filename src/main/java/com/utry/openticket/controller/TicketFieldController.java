@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.DataTruncation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class TicketFieldController {
     public String saveFields(@RequestBody String jsonObj){
         TicketFieldDTO ticketFieldDTO = (TicketFieldDTO)JSON.parseObject(jsonObj,TicketFieldDTO.class);
 
-        // TODO
+        //
         if(Constant.selectType.equals(ticketFieldDTO.getSelectType())){
             ticketFieldService.saveTicketField(ticketFieldDTO);
         }else{
@@ -79,6 +80,7 @@ public class TicketFieldController {
             }
             ticketFieldService.saveTicketField(ticketFieldDTO,fieldTypeValueList);
         }
+
         return "success";
     }
 

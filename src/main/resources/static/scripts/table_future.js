@@ -25,6 +25,12 @@ function deleteTicket(obj){
    });
 }
 
+function updateTicket(obj){
+    var id = $(obj).parents("tr").find("td").eq(1).text();
+    var ticketType = $("#btnGroupVerticalDrop6").text();
+    window.location.href="/openticket/updateTicketPage?id="+id+"&ticketType="+ticketType;
+}
+
 $(function () {
     //初始化Table
     var myColumn = getColumn();
@@ -92,7 +98,7 @@ function getColumn(){
 
 //给操作栏添加编辑删除
 function operationButton(value, row, index) {
-    return "<a class='edit' href='javascript:;'>编辑</a><a class='edit' href='javascript:;' onclick='deleteTicket(this)'>删除</a>";
+    return "<a class='edit' href='javascript:;' onclick='updateTicket(this)'>编辑</a><a class='edit' href='javascript:;' onclick='deleteTicket(this)'>删除</a>";
 }
 
 //表格属性

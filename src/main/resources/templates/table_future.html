@@ -61,11 +61,11 @@ Purchase: http://themeforest.net/item/conquer-responsive-admin-dashboard-templat
                   
                   <div class="portlet-body">
                      <div class="table-toolbar">
-                        <div class="btn-group">
-                           <button id="sample_editable_1_new" class="btn btn-success" onclick="javascript:window.location.href='/openticket/addTicket'">
-                               新增工单 <i class="icon-plus"></i>
-                           </button>
-                        </div>
+                        <!--<div class="btn-group">-->
+                           <!--<button id="sample_editable_1_new" class="btn btn-success" onclick="javascript:window.location.href='/openticket/addTicket'">-->
+                               <!--新增工单 <i class="icon-plus"></i>-->
+                           <!--</button>-->
+                        <!--</div>-->
                         <div class="btn-group">
                             <button id="sample_editable_2_new" class="btn btn-success" onclick="javascript:window.location.href='/openticket/addField'">
                                 新增属性 <i class="icon-plus"></i>
@@ -91,6 +91,15 @@ Purchase: http://themeforest.net/item/conquer-responsive-admin-dashboard-templat
                               <li><a href="javascript:void(0)" onclick="newTicketType()">添加新的工单类型</a></li>
                           </ul>
                       </div>
+                     <div class="btn-group">
+                        <button id="btnGroupVerticalDrop7" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                           新增工单
+                           <i class="icon-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop6">
+                           <li th:each="ticketType : ${ticketTypeList}"><a th:text="${ticketType.name}" th:href="@{'/addTicket?ticketType='+${ticketType.name}}" class="saveTicketType"></a></li>
+                        </ul>
+                     </div>
                      <table class="table table-striped table-hover table-bordered" id="ticketTable"></table>
                   </div>
                </div>

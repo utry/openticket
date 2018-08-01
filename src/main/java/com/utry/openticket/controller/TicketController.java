@@ -8,12 +8,13 @@ package com.utry.openticket.controller;
  */
 
 import com.alibaba.fastjson.JSON;
+import com.utry.openticket.dto.TicketValueDTO;
 import com.utry.openticket.dto.TicketDTO;
-import com.utry.openticket.model.TicketFieldDO;
+import com.utry.openticket.dto.TicketFieldDTO;
+import com.utry.openticket.model.FieldTypeValueDO;
 import com.utry.openticket.model.TicketTypeDO;
-import com.utry.openticket.service.TicketFieldService;
-import com.utry.openticket.service.TicketService;
-import com.utry.openticket.service.TicketTypeService;
+import com.utry.openticket.model.TicketValueDO;
+import com.utry.openticket.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -34,6 +38,10 @@ public class TicketController {
     private TicketService ticketService;
     @Autowired
     private TicketTypeService ticketTypeService;
+    @Autowired
+    private FieldTypeValueService fieldTypeValueService;
+    @Autowired
+    private TicketValueService ticketValueService;
 
     /**
      *
@@ -61,8 +69,8 @@ public class TicketController {
      * @date : 2018-07-26
      */
     @RequestMapping("getColumn")
-    public @ResponseBody List<TicketFieldDO> getTicketColumn(@RequestParam String ticketType){
-        List<TicketFieldDO> ticketFieldList = ticketFieldService.getColumn(ticketType);
+    public @ResponseBody List<TicketFieldDTO> getTicketColumn(@RequestParam String ticketType){
+        List<TicketFieldDTO> ticketFieldList = ticketFieldService.getColumn(ticketType);
         return ticketFieldList;
     }
 
@@ -76,9 +84,23 @@ public class TicketController {
      * @date : 2018-07-26
      */
     @RequestMapping("getTicket")
-    public @ResponseBody List<TicketDTO> getTicket(@RequestParam String ticketType){
+    public @ResponseBody List<Map<String,String>> getTicket(@RequestParam String ticketType){
         List<TicketDTO> ticketList = ticketService.getTicketList(ticketType);
-        return ticketList;
+        List<Map<String,String>> result = new ArrayList<>();
+        for(TicketDTO ticket:ticketList){
+            Map<String,String> ticketMap = new LinkedHashMap<>();
+            ticketMap.put("id",ticket.getId().toString());
+            ticketMap.put("createTime",ticket.getCreateTime().toString());
+            ticketMap.put("createUser",ticket.getCreateUser());
+            ticketMap.put("ticketType",ticket.getTicketType());
+            int ticketId = ticket.getId();
+            List<TicketValueDTO> ticketValueList = ticketValueService.getTicketValueList(ticketId);
+            for(TicketValueDTO ticketValue:ticketValueList){
+                ticketMap.put(ticketValue.getFieldName(),ticketValue.getValue());
+            }
+            result.add(ticketMap);
+        }
+        return result;
     }
 
     /**
@@ -91,9 +113,14 @@ public class TicketController {
      * @date : 2018-07-26
      */
     @RequestMapping("addTicket")
-    public String addFieldsPage(Model map){
-        List<TicketTypeDO> ticketTypeDOList = ticketTypeService.getTicketTypeList();
-        map.addAttribute("ticketTypeList", ticketTypeDOList);
+    public String addFieldsPage(@RequestParam String ticketType,Model model){
+        List<TicketFieldDTO> ticketFieldList = ticketFieldService.getColumn(ticketType);
+        for(TicketFieldDTO t:ticketFieldList){
+            t.setSelectValueList(fieldTypeValueService.getFieldTypeValue(t.getId()));
+            //System.out.println(t);
+        }
+        model.addAttribute("ticketType",ticketType);
+        model.addAttribute("ticketFieldList",ticketFieldList);
         return "/form_future";
     }
 
@@ -109,9 +136,11 @@ public class TicketController {
     @RequestMapping("saveTicket")
     @ResponseBody
     public String saveTicket(@RequestBody String jsonObj){
-        TicketDTO ticketDTO = (TicketDTO)JSON.parseObject(jsonObj,TicketDTO.class);
-        ticketDTO.setCreateUser("张三");
-        ticketService.saveTicket(ticketDTO);
+        TicketDTO ticket = (TicketDTO)JSON.parseObject(jsonObj,TicketDTO.class);
+        String ticketType = ticket.getTicketType();
+        ticket.setCreateUser("张三");
+        List<TicketValueDO> ticketValueList = ticket.getTicketValueList();
+        ticketService.saveTicket(ticket,ticketValueList);
         return "success";
     }
 
@@ -128,6 +157,49 @@ public class TicketController {
     @ResponseBody
     public String deleteTicket(@RequestParam Integer id){
         ticketService.deleteTicket(id);
+        return "success";
+    }
+
+    /**
+     *
+     * 功能描述 : 跳转到编辑工单页面
+     *
+     * @param : Model
+     * @return :
+     * @auther : LVDING
+     * @date : 2018-08-01
+     */
+    @RequestMapping("updateTicketPage")
+    public String updateTicket(@RequestParam int id,@RequestParam String ticketType,Model model){
+        List<TicketFieldDTO> ticketFieldList = ticketFieldService.getUpdateColumn(id,ticketType);
+        for(TicketFieldDTO t:ticketFieldList){
+            t.setSelectValueList(fieldTypeValueService.getFieldTypeValue(t.getId()));
+            //System.out.println(t);
+        }
+        model.addAttribute("ticketId",id);
+        model.addAttribute("ticketFieldList",ticketFieldList);
+        return "/table_update";
+    }
+
+    /**
+     *
+     * 功能描述 : 添加工单
+     *自定义列
+     * @param : jsonObj(TicketDTO) 工单对象
+     * @return : String 结果
+     * @auther : LVDING
+     * @date : 2018-08-01
+     */
+    @RequestMapping("updateTicket")
+    @ResponseBody
+    public String updateTicket(@RequestBody String jsonObj){
+        TicketDTO ticket = (TicketDTO)JSON.parseObject(jsonObj,TicketDTO.class);
+        int id = ticket.getId();
+        List<TicketValueDO> ticketValueList = ticket.getTicketValueList();
+        for(TicketValueDO ticketValue:ticketValueList){
+            ticketValue.setTicketId(id);
+        }
+        ticketValueService.updateTicketValueList(ticketValueList);
         return "success";
     }
 }

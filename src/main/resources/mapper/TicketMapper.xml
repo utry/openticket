@@ -11,15 +11,24 @@
         and t.ticket_type_id = tt.id
     </select>
 
-    <insert id="saveTicket" parameterType="com.utry.openticket.dto.TicketDTO">
+    <insert id="saveTicket" parameterType="com.utry.openticket.dto.TicketDTO"
+            useGeneratedKeys="true" keyProperty="ticketDTO.id" >
         insert into ot_ticket(create_time,create_user_id,ticket_type_id)
         values(SYSDATE(),
           (select id from ot_user where name='${createUser}'),
           (select id from ot_ticket_type where name='${ticketType}')
         )
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() as id
+        </selectKey>
     </insert>
 
     <delete id="deleteTicket" parameterType="java.lang.Integer">
         delete from ot_ticket where id=${value}
     </delete>
+
+    <select id="getTicketIdByTicketType" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select id from ot_ticket where ticket_type_id=(select id from ot_ticket_type where name=#{value})
+    </select>
+
 </mapper>

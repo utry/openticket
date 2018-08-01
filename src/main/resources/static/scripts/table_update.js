@@ -1,14 +1,14 @@
 /**
- * @Description : form_future.js
+ * @Description : table_update.js
  * @author : LVDING
  * @version : 1.0
- * @date : 2018/07/26
+ * @date : 2018/08/01
  */
 var ticketValueList = new Array();
 
 //进行校验并提交表单
 function submitOrder(){
-    var ticketType = $("h3").text();
+    var ticketId = $("input[type=hidden]").val();
     $(".selfDefine").each(function () {
         var fieldId = $(this).attr('id');
         var value = $(this).val();
@@ -19,20 +19,19 @@ function submitOrder(){
     })
     $.ajax({
         type:"post",
-        url:"/openticket/saveTicket",
+        url:"/openticket/updateTicket",
         contentType: "application/json",
         //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         data:JSON.stringify({
-            ticketType:ticketType,
+            id:ticketId,
             ticketValueList:ticketValueList
         }),
         success:function(data){
-            alert("添加成功！");
+            alert("修改成功！");
             window.location.href="/openticket/index";
         },
         error:function(data){
-            alert("添加失败！");
+            alert("修改失败！");
         }
     });
 }
-

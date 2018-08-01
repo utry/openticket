@@ -8,9 +8,11 @@ package com.utry.openticket.dto;
  */
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.utry.openticket.model.TicketValueDO;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class TicketDTO implements Serializable {
     private Integer id;
@@ -18,6 +20,7 @@ public class TicketDTO implements Serializable {
     private Date createTime;
     private String createUser;
     private String  ticketType;
+    private List<TicketValueDO> ticketValueList;
 
     public Integer getId() {
         return id;
@@ -49,5 +52,13 @@ public class TicketDTO implements Serializable {
 
     public void setTicketType(String ticketType) {
         this.ticketType = ticketType;
+    }
+
+    public List<TicketValueDO> getTicketValueList() {
+        return ticketValueList;
+    }
+
+    public void setTicketValueList(List<TicketValueDO> ticketValueList) {
+        this.ticketValueList = ticketValueList;
     }
 }

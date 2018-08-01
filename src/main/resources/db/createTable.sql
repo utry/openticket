@@ -1,10 +1,20 @@
+drop table ot_field_type_value;
+drop table ot_ticket;
+drop table ot_user;
+drop table ot_ticket_field;
+drop table ot_ticket_type;
+drop table ot_field_type;
+drop table ot_ticket_value;
+drop table ot_attachment;
+
+
 /*==============================================================*/
 /* Table: ot_select_value                                       */
 /*==============================================================*/
 create table ot_field_type_value
 (
    id                   int not null comment '选择值编号' AUTO_INCREMENT,
-   fields_id            int  not null comment '对象编号',
+   field_id            int  not null comment '对象编号',
    value                varchar(255)  not null comment '值',
    primary key (id)
 );
@@ -72,7 +82,7 @@ create table ot_field_type
 create table ot_ticket_value
 (
    id                   int not null comment '数据编号' AUTO_INCREMENT,
-   fields_id            int not null comment '对象编号',
+   field_id            int not null comment '对象编号',
    ticket_id            int not null comment '工单编号',
    value                varchar(255) comment '值',
    primary key (id)

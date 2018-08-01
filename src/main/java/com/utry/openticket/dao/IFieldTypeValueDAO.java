@@ -26,4 +26,15 @@ public interface IFieldTypeValueDAO {
      */
     int saveFieldTypeValue(List<FieldTypeValueDO> fieldTypeValuelist);
 
+    /**
+     *
+     * 功能描述 : 查询指定自定义列的选择值
+     *
+     * @param : fieldId 指定列id
+     * @return : List<String> 选择值
+     * @auther : LVDING
+     * @date : 2018-07-31
+     */
+    List<String> getFieldTypeValue(int fieldId);
+
 }

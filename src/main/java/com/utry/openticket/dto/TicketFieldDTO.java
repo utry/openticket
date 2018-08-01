@@ -13,11 +13,12 @@ import java.util.List;
 public class TicketFieldDTO implements Serializable {
     private Integer id;
     private String name;
+    private String fieldName;
     private String ticketType;
     private Integer required;
     private String defaultValue;
     private String selectType;
-    private String selectValues;
+    private String value;
     private List<String> selectValueList;
 
     public Integer getId() {
@@ -34,6 +35,14 @@ public class TicketFieldDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
     public Integer getRequired() {
@@ -60,14 +69,6 @@ public class TicketFieldDTO implements Serializable {
         this.selectType = selectType;
     }
 
-    public String getSelectValues() {
-        return selectValues;
-    }
-
-    public void setSelectValues(String selectValues) {
-        this.selectValues = selectValues;
-    }
-
     public String getTicketType() {
         return ticketType;
     }
@@ -82,5 +83,27 @@ public class TicketFieldDTO implements Serializable {
 
     public void setSelectValueList(List<String> selectValueList) {
         this.selectValueList = selectValueList;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "TicketFieldDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", fieldName='" + fieldName + '\'' +
+                ", ticketType='" + ticketType + '\'' +
+                ", required=" + required +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", selectType='" + selectType + '\'' +
+                ", selectValueList=" + selectValueList +
+                '}';
     }
 }
