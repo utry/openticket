@@ -48,11 +48,13 @@ create table ot_ticket_field
 (
    id                   int not null comment '对象编号' AUTO_INCREMENT,
    ticket_type_id		    int not null comment '工单类型编号',
-   field_name           varchar (255) not null unique comment '对象字段名', 
-   name                 varchar(255) not null unique comment '对象名称',
+   field_name           varchar (255) not null comment '对象字段名',
+   name                 varchar(255) not null comment '对象名称',
    required             tinyint not null comment '是否必填' default '0', /* 默认为否 */
    default_value        varchar(255) comment '默认值',
    select_id          	int not null comment '选择类型',
+   CONSTRAINT ticketTypeId_name UNIQUE (ticket_type_id,name),
+   CONSTRAINT ticketTypeId_fieldName UNIQUE (ticket_type_id,field_name),
    primary key (id)
 );
 
@@ -67,7 +69,7 @@ create table ot_ticket_type
 );
 
 /*==============================================================*/
-/* Table: ot_field_type                                      */
+/* Table: ot_field_type                                         */
 /*==============================================================*/
 create table ot_field_type
 (

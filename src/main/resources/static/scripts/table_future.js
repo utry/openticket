@@ -1,3 +1,4 @@
+
 /**
  * @Description : table_future.js
  * @author : LVDING
@@ -9,26 +10,20 @@
 function deleteTicket(obj){
     var tr = $(obj).parents("tr");
     var id = $(obj).parents("tr").find("td").eq(1).text();
-   $.ajax({
-       type:"post",
-       url:"/openticket/deleteTicket",
-       //contentType: "application/json",
-       //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-       data:{ id:id },
-       success:function(data){
-           alert("删除成功！");
-           tr.remove();
-       },
-       error:function(data){
-           alert("删除失败！");
-       }
-   });
-}
-
-function updateTicket(obj){
-    var id = $(obj).parents("tr").find("td").eq(1).text();
-    var ticketType = $("#btnGroupVerticalDrop6").text();
-    window.location.href="/openticket/updateTicketPage?id="+id+"&ticketType="+ticketType;
+    $.ajax({
+        type:"post",
+        url:"/openticket/deleteTicket",
+        //contentType: "application/json",
+        //contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:{ id:id },
+        success:function(data){
+            alert("删除成功！");
+            tr.remove();
+        },
+        error:function(data){
+            alert("删除失败！");
+        }
+    });
 }
 
 $(function () {
@@ -48,6 +43,13 @@ $(function () {
         );
     });
 });
+
+//跳转到编辑工单页面
+function updateTicket(obj){
+    var id = $(obj).parents("tr").find("td").eq(1).text();
+    var ticketType = $("#btnGroupVerticalDrop6").text();
+    window.location.href="/openticket/updateTicketPage?id="+id+"&ticketType="+ticketType;
+}
 
 // 加载动态表格列
 function getColumn(){
