@@ -1,11 +1,11 @@
-drop table ot_field_type_value;
-drop table ot_ticket;
-drop table ot_user;
-drop table ot_ticket_field;
-drop table ot_ticket_type;
-drop table ot_field_type;
-drop table ot_ticket_value;
-drop table ot_attachment;
+-- drop table ot_field_type_value;
+-- drop table ot_ticket;
+-- drop table ot_user;
+-- drop table ot_ticket_field;
+-- drop table ot_ticket_type;
+-- drop table ot_field_type;
+-- drop table ot_ticket_value;
+-- drop table ot_attachment;
 
 
 /*==============================================================*/
