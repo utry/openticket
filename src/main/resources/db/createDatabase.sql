@@ -1,1 +1,1 @@
-create database openticket
+ create database openticket
